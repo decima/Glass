@@ -1,0 +1,41 @@
+<div class="inline-block">{{.Name}}</div>
+{{ if or (ne .SortBy .SortField) (ne .SortDir "asc") }}
+<a class="inline-block" href="?sortBy={{.SortField}}&sortDir=asc">
+    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="caret-up"
+         class="h-4 svg-inline--fa fa-caret-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 320 512">
+        <path fill="currentColor"
+              d="M32.032 352h255.93c28.425 0 42.767-34.488 22.627-54.627l-127.962-128c-12.496-12.496-32.758-12.497-45.255 0l-127.968 128C-10.695 317.472 3.55 352 32.032 352zM160 192l128 128H32l128-128z"></path>
+    </svg>
+</a>
+{{ else }}
+<a class="inline-block">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-up"
+         class="h-4 svg-inline--fa fa-caret-down fa-w-10"
+         role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+        <path fill="currentColor"
+              d="M9.39 265.4l127.1-128C143.6 131.1 151.8 128 160 128s16.38 3.125 22.63 9.375l127.1 128c9.156 9.156 11.9 22.91 6.943 34.88S300.9 320 287.1 320H32.01c-12.94 0-24.62-7.781-29.58-19.75S.2333 274.5 9.39 265.4z"></path>
+    </svg>
+</a>
+{{ end }}
+{{ if or (ne .SortBy .SortField) (ne .SortDir "desc") }}
+<a class="inline-block" href="?sortBy={{.SortField}}&sortDir=desc">
+    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="caret-down"
+         class="h-4 svg-inline--fa fa-caret-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 320 512">
+        <path fill="currentColor"
+              d="M287.968 160H32.038c-28.425 0-42.767 34.488-22.627 54.627l127.962 128c12.496 12.496 32.758 12.497 45.255 0l127.968-128C330.695 194.528 316.45 160 287.968 160zM160 320L32 192h256L160 320z"></path>
+    </svg>
+</a>
+{{ else }}
+<a class="inline-block">
+
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down"
+         class=" h-4 svg-inline--fa fa-caret-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 320 512">
+        <path fill="currentColor"
+              d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"></path>
+    </svg>
+</a>
+{{ end }}
+</span>
