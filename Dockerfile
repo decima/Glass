@@ -11,7 +11,8 @@ RUN go mod download
 COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/glass
-FROM scratch AS release
+FROM alpine AS release
+RUN apk add  --no-cache ffmpeg
 ENV GIN_MODE=release
 ARG VERSION=dev
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
