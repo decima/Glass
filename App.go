@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gin-contrib/location"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
@@ -33,6 +34,7 @@ func routines() {
 func main() {
 	routines()
 	r := gin.Default()
+	r.Use(location.Default())
 	r.SetFuncMap(tools.FuncMap())
 	r.LoadHTMLGlob("templates/" + *theme + "/*")
 	r.Use(static.Serve("/_assets", static.LocalFile("public", false)))
@@ -63,6 +65,8 @@ func main() {
 		sortDir := c.DefaultQuery("sortDir", "asc")
 		layout := c.DefaultQuery("layout", "index")
 		fullList := c.DefaultQuery("full", "no")
+		api := c.DefaultQuery("api", "no")
+		compact := c.DefaultQuery("compact", "no")
 		listing := tools.GetSortedFileListing(path, sortBy, sortDir, fullList != "no")
 		listing.Info = info
 		listing.Path = c.Param("path")
@@ -72,6 +76,24 @@ func main() {
 			listing.Mode = "full"
 		}
 		c.Request.URL.Query()
+		if api != "no" {
+			loc := location.Get(c)
+			c.Request.URL.Host = loc.Host
+			c.Request.URL.Scheme = loc.Scheme
+			for k, v := range listing.Files {
+				tmpNewUrl := *c.Request.URL
+				tmpNewUrl.Path = tmpNewUrl.Path + v.Name
+				listing.Files[k].Url = tmpNewUrl.String()
+
+			}
+			if compact == "no" {
+				c.JSON(200, gin.H{"path": listing.Path, "files": listing.Files})
+			} else {
+				c.JSON(200, listing.Compact())
+
+			}
+			return
+		}
 		c.HTML(http.StatusOK, layout+".html", listing)
 	})
 
