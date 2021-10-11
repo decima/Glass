@@ -2,7 +2,9 @@ package main
 
 import (
 	"Glass/tools"
+	"encoding/json"
 	"flag"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
@@ -32,6 +34,7 @@ func routines() {
 }
 
 func main() {
+	processStyleAndJs()
 	routines()
 	r := gin.Default()
 	r.Use(location.Default())
@@ -53,8 +56,8 @@ func main() {
 			return
 		}
 		if !strings.HasSuffix(path, "/") {
-			path += "/"
-			c.Redirect(302, path)
+			c.Request.URL.Path += "/"
+			c.Redirect(302, c.Request.URL.String())
 		}
 
 		if hidden, ok := c.GetQuery("hidden"); ok {
@@ -75,7 +78,6 @@ func main() {
 		if fullList != "no" {
 			listing.Mode = "full"
 		}
-		c.Request.URL.Query()
 		if api != "no" {
 			loc := location.Get(c)
 			c.Request.URL.Host = loc.Host
@@ -123,4 +125,34 @@ func loadPreview(c *gin.Context, path string, hidden string) {
 	default:
 		c.Writer.Write([]byte{})
 	}
+}
+
+func processStyleAndJs() {
+	content, err := ioutil.ReadFile("public/build/manifest.json")
+	if err != nil {
+		return
+	}
+	var manifest struct {
+		AppJs struct {
+			File    string   `json:"file"`
+			Src     string   `json:"src"`
+			IsEntry bool     `json:"isEntry"`
+			CSS     []string `json:"css"`
+		} `json:"app.js"`
+	}
+	err = json.Unmarshal(content, &manifest)
+	if err != nil {
+		return
+	}
+	js, err := ioutil.ReadFile("public/build/" + manifest.AppJs.File)
+	if err != nil {
+		return
+	}
+	style, err := ioutil.ReadFile("public/build/" + manifest.AppJs.CSS[0])
+	if err != nil {
+		return
+	}
+	ioutil.WriteFile("public/build/app.css", style, 0644)
+	ioutil.WriteFile("public/build/app.js", js, 0644)
+
 }
