@@ -1,6 +1,6 @@
 <div class="inline-block">{{.Name}}</div>
 {{ if or (ne .SortBy .SortField) (ne .SortDir "asc") }}
-<a class="inline-block" href="?sortBy={{.SortField}}&sortDir=asc">
+<a class="inline-block" href='{{ urlAddQuery (urlAddQuery .Request.URL "sortBy" .SortField) "sortDir" "asc" }}'>
     <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="caret-up"
          class="h-4 svg-inline--fa fa-caret-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
          viewBox="0 0 320 512">
@@ -19,7 +19,7 @@
 </a>
 {{ end }}
 {{ if or (ne .SortBy .SortField) (ne .SortDir "desc") }}
-<a class="inline-block" href="?sortBy={{.SortField}}&sortDir=desc">
+<a class="inline-block" href='{{ urlAddQuery (urlAddQuery .Request.URL "sortBy" .SortField) "sortDir" "desc" }}'>
     <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="caret-down"
          class="h-4 svg-inline--fa fa-caret-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
          viewBox="0 0 320 512">
