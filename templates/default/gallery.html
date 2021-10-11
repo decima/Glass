@@ -6,30 +6,26 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
-    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
-    <link href="/_assets/tailwind.min.css" rel="stylesheet">
+    <link href="/_assets/build/app.css" rel="stylesheet">
 
 </head>
-<body>
-<script>
-    lazyload();
-</script>
+<body class="dark:bg-gray-900 dark:text-gray-50 bg-gray-50 text-gray-900">
 <div class="container mx-auto p-2">
+    
     {{ template "_header.html" dict "layout" "gallery" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
-
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {{range .Files }}
         {{ if .IsDir }}
-        <a href="{{$.Path}}{{.Name}}/" class="text-blue-400  w-full h-96 relative flex flex-col  flex-wrap content-center justify-end bg-cover bg-center bg-no-repeat hover:text-pink-300 text-xl"
+    <a href="{{ changePath $.Request.URL (print $.Path .Name) }}" class="w-full h-96 relative flex flex-col  flex-wrap content-center justify-end bg-cover bg-center bg-no-repeat hover:text-pink-300 text-xl"
          style="background-image: url({{$.Path}}{{.Name}}/?hidden=dir)">
-            <span class="w-full h-8 text-center align-bottom bg-white">{{.Name}}</span>
+            <span class="w-full h-8 text-center align-bottom">{{.Name}}</span>
         </a>
         {{end}}
         {{$fileType := (ftype .Name) }}
         {{ if eq $fileType "image"}}
         <img src="{{$.Path}}{{.Name}}" class="lazyload w-full" loading="lazy">
         {{ else if eq $fileType "video"}}
-        <a href="{{$.Path}}{{.Name}}" target="_blank"
+        <a href="{{ changePath $.Request.URL (print $.Path .Name)}}" target="_blank"
            class="w-full h-96 relative flex flex-wrap content-center justify-center bg-contain bg-center bg-no-repeat text-pink-500 hover:text-pink-300"
            style="background-image:url({{$.Path}}{{.Name}}?thumbnail=1)">
             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-play"
@@ -46,6 +42,7 @@
         {{end}}
     </div>
 </div>
+{{ template "_footer.html" }}
 
 
 </body>

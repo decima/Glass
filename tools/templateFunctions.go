@@ -3,11 +3,12 @@ package tools
 import (
 	"errors"
 	"fmt"
-	"github.com/Masterminds/sprig"
 	"html/template"
 	"net/url"
 	"reflect"
 	"strings"
+
+	"github.com/Masterminds/sprig"
 )
 
 func FuncMap() template.FuncMap {
@@ -15,6 +16,7 @@ func FuncMap() template.FuncMap {
 	fmap["dict"] = Dict
 	fmap["hrsize"] = PrettyBytes
 	fmap["urlAddQuery"] = AddUrlArg
+	fmap["changePath"] = ChangePath
 	fmap["ftype"] = FileType
 	fmap["last"] = func(x int, a interface{}) bool {
 		return x == reflect.ValueOf(a).Len()-1
@@ -77,5 +79,11 @@ func AddUrlArg(original *url.URL, k string, v string) *url.URL {
 	query.Del(k)
 	query.Add(k, v)
 	u.RawQuery = query.Encode()
+	return u
+}
+
+func ChangePath(original *url.URL, path string) *url.URL {
+	u, _ := url.Parse(original.String())
+	u.Path = path
 	return u
 }

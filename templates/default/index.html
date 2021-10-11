@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="/_assets/tailwind.min.css" rel="stylesheet">
+    <link href="/_assets/build/app.css" rel="stylesheet">
 
     <title>Glass -
         {{ if eq .Path "/"}}
@@ -14,14 +14,14 @@
         {{ .Info.Name }}
         {{end}}</title>
 </head>
-<body>
+<body class="dark:bg-gray-900 dark:text-gray-50 bg-gray-50 text-gray-900">
 
 <div class="container mx-auto p-2">
     {{ template "_header.html" dict "layout" "default" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
 
     <table class="w-full whitespace-nowrap">
         <thead>
-        <tr class="h-16 w-full text-sm leading-none text-gray-800">
+        <tr class="h-16 w-full text-sm leading-none">
             <th class="font-normal text-left pl-4 w-full">
                 {{template "_sort.html" dict "Name" "Name" "SortField" "name" "SortBy" .SortBy "SortDir" .SortDir "Request" .Request }}
 
@@ -38,9 +38,9 @@
         </thead>
         <tbody class="w-full">
         {{ if ne .Path "/" }}
-        <tr class="h-12 text-sm leading-none text-gray-800 bg-white border-b border-t">
+        <tr class="h-12 text-sm leading-none  border-b border-t">
             <td class="pl-4 cursor-pointer">
-                <a href="{{.Path}}.." class="text-blue-600 visited:text-purple-600">
+                <a href='{{ changePath .Request.URL (print .Path "..")}}'>
                     <svg aria-hidden="true"
                          focusable="false" data-prefix="fal" data-icon="folder" class="h-4 inline-block mr-2"
                          role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -57,19 +57,19 @@
         {{end}}
         {{range .Files }}
 
-        <tr class="h-12 text-sm leading-none text-gray-800 bg-white  border-b border-t border-gray-100">
+        <tr class="h-12 text-sm leading-none text-gray-800 bg-white dark:text-gray-100 dark:bg-black  border-b border-t border-gray-100">
 
             <td class="pl-4 cursor-pointer">
                 {{ if .IsDir }}
 
-                <a href="{{$.Path}}{{.Name}}/" class="text-blue-600 visited:text-purple-600">
+                <a href="{{ changePath $.Request.URL ( print $.Path  .Name)}}/">
                     <img src="{{$.Path}}{{.Name}}/?hidden=dir"
                          class="h-6 inline-block mr-2"/>{{.Name}}/</a>
                 {{else}}
                 {{$fileType := (ftype .Name) }}
 
 
-                <a href="{{$.Path}}{{.Name}}" class="text-blue-600 visited:text-purple-600">
+                <a href="{{ changePath $.Request.URL (print $.Path .Name)}}">
                     {{if eq $fileType "video"}}
 
                     <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-video"
@@ -137,6 +137,9 @@
         </tbody>
     </table>
 </div>
+
+{{ template "_footer.html" }}
+
 </body>
 </html>
 
