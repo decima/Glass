@@ -23,6 +23,8 @@ func GetSortedFileListing(path string, sortBy string, sortDir string, fullList b
 			}
 			path = strings.TrimPrefix(path, ".")
 			path = strings.Trim(path, "/")
+			p = strings.Trim(p, "/")
+
 			p = strings.TrimPrefix(p, path+"/")
 			if strings.HasPrefix(file.Name(), ".") {
 				return nil
