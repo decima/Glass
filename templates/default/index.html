@@ -17,20 +17,20 @@
 <body>
 
 <div class="container mx-auto p-2">
-    {{ template "_header.html" dict "layout" "default" "Request" .Request "Path" .Path "Info" .Info }}
+    {{ template "_header.html" dict "layout" "default" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
 
     <table class="w-full whitespace-nowrap">
         <thead>
         <tr class="h-16 w-full text-sm leading-none text-gray-800">
             <th class="font-normal text-left pl-4 w-full">
-                {{template "_sort.html" dict "Name" "Name" "SortField" "name" "SortBy" .SortBy "SortDir" .SortDir }}
+                {{template "_sort.html" dict "Name" "Name" "SortField" "name" "SortBy" .SortBy "SortDir" .SortDir "Request" .Request }}
 
             </th>
             <th class="font-normal text-left pl-12">
 
-                {{template "_sort.html" dict "Name" "Size" "SortField" "size" "SortBy" .SortBy "SortDir" .SortDir }}
+                {{template "_sort.html" dict "Name" "Size" "SortField" "size" "SortBy" .SortBy "SortDir" .SortDir "Request" .Request }}
                 <div class="text-xs">
-                {{template "_sort.html" dict "Name" "Last Modified" "SortField" "date" "SortBy" .SortBy "SortDir" .SortDir }}
+                    {{template "_sort.html" dict "Name" "Last Modified" "SortField" "date" "SortBy" .SortBy "SortDir" .SortDir "Request" .Request }}
                 </div>
             </th>
 
@@ -63,13 +63,8 @@
                 {{ if .IsDir }}
 
                 <a href="{{$.Path}}{{.Name}}/" class="text-blue-600 visited:text-purple-600">
-                    <svg aria-hidden="true"
-                         focusable="false" data-prefix="fal" data-icon="folder" class="h-4 inline-block mr-2"
-                         role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path fill="currentColor"
-                              d="M194.74 96l54.63 54.63c6 6 14.14 9.37 22.63 9.37h192c8.84 0 16 7.16 16 16v224c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V112c0-8.84 7.16-16 16-16h146.74M48 64C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48z"></path>
-                    </svg>
-                    {{.Name}}/</a>
+                    <img src="{{$.Path}}{{.Name}}/?hidden=dir"
+                         class="h-6 inline-block mr-2"/>{{.Name}}/</a>
                 {{else}}
                 {{$fileType := (ftype .Name) }}
 
@@ -128,9 +123,7 @@
             </td>
             <td class="pl-12">
                 <span>
-                    {{ if not .IsDir }}
                         {{hrsize .Size}}
-                    {{ end }}
                 </span>
                 <div class="text-xs">{{.ModTime.Format "2006-01-02 15:04:05" }}</div>
 
