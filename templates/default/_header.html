@@ -1,89 +1,117 @@
-
-<div class="flex justify-between  mt-12 md:mt-20">
-    <div>
-        <h1 class="text-7xl">
-            {{ if eq .Path "/"}}
-            /
-            {{ else }}
-            {{ .Info.Name }}
-            {{end}}
-        </h1>
-        <span class="pt-4 text-gray-600">
-        {{ $base := "" }}
-        {{ range $i,$e:=(splitList "/" $.Path)}}
-            <a href='{{changePath $.Request.URL (print  $base  $e "/")}}' class="hover:underline">
-            {{if eq $i 0}}
-                    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="home"
-                         class="h-4 inline-block " role="img"
-                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor"
-                                                                                        d="M541 229.16l-61-49.83v-77.4a6 6 0 0 0-6-6h-20a6 6 0 0 0-6 6v51.33L308.19 39.14a32.16 32.16 0 0 0-40.38 0L35 229.16a8 8 0 0 0-1.16 11.24l10.1 12.41a8 8 0 0 0 11.2 1.19L96 220.62v243a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-128l64 .3V464a16 16 0 0 0 16 16l128-.33a16 16 0 0 0 16-16V220.62L520.86 254a8 8 0 0 0 11.25-1.16l10.1-12.41a8 8 0 0 0-1.21-11.27zm-93.11 218.59h.1l-96 .3V319.88a16.05 16.05 0 0 0-15.95-16l-96-.27a16 16 0 0 0-16.05 16v128.14H128V194.51L288 63.94l160 130.57z"></path></svg>
-            {{end}}
-            {{$e}}
-            </a> {{if last $i (splitList "/" $.Path) }}{{else}}/{{ end}}{{ $base = (print $base $e "/")}}
-        {{ end}}
-        </span>
-    </div>
-
-
-
-    <div class="flex flex-col">
-        <div class="w-full h-full flex flex-col justify-center items-center">
-            <div class="flex justify-center items-center flex-col sm:flex-row">
-                <div>
-                    <a class="theme-toggler inline-block">
-                        <svg class="h-8 dark:hidden inline text-yellow-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g class="fa-group"><path class="fa-secondary" fill="currentColor" d="M502.42 240.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.41-94.8a17.31 17.31 0 0 0-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4a17.31 17.31 0 0 0 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.41-33.5 47.3 94.7a17.31 17.31 0 0 0 31 0l47.31-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3a17.33 17.33 0 0 0 .2-31.1zm-155.9 106c-49.91 49.9-131.11 49.9-181 0a128.13 128.13 0 0 1 0-181c49.9-49.9 131.1-49.9 181 0a128.13 128.13 0 0 1 0 181z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M352 256a96 96 0 1 1-96-96 96.15 96.15 0 0 1 96 96z"></path></g></svg>
-
-
-                      <svg class="h-8 hidden dark:inline text-blue-200" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g class="fa-group"><path class="fa-secondary" fill="currentColor" d="M320 32L304 0l-16 32-32 16 32 16 16 32 16-32 32-16zm138.7 149.3L432 128l-26.7 53.3L352 208l53.3 26.7L432 288l26.7-53.3L512 208z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M332.2 426.4c8.1-1.6 13.9 8 8.6 14.5a191.18 191.18 0 0 1-149 71.1C85.8 512 0 426 0 320c0-120 108.7-210.6 227-188.8 8.2 1.6 10.1 12.6 2.8 16.7a150.3 150.3 0 0 0-76.1 130.8c0 94 85.4 165.4 178.5 147.7z"></path></g></svg>
-                    </a>
-                </div>
-            </div>
+<div class="dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-800 w-full shadow">
+    <div class="container mx-auto p-2  flex ">
+        <div class="grow">
+            {{ $base := "" }}
+            {{ range $i,$e:=(splitList "/" $.Path)}}
+                <a href='{{changePath $.Request.URL (print  $base  $e "/")}}' class="hover:underline">
+                    {{if eq $i 0}}
+                        <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="home"
+                             class="h-6 inline-block " role="img"
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path fill="currentColor"
+                                  d="M541 229.16l-61-49.83v-77.4a6 6 0 0 0-6-6h-20a6 6 0 0 0-6 6v51.33L308.19 39.14a32.16 32.16 0 0 0-40.38 0L35 229.16a8 8 0 0 0-1.16 11.24l10.1 12.41a8 8 0 0 0 11.2 1.19L96 220.62v243a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-128l64 .3V464a16 16 0 0 0 16 16l128-.33a16 16 0 0 0 16-16V220.62L520.86 254a8 8 0 0 0 11.25-1.16l10.1-12.41a8 8 0 0 0-1.21-11.27zm-93.11 218.59h.1l-96 .3V319.88a16.05 16.05 0 0 0-15.95-16l-96-.27a16 16 0 0 0-16.05 16v128.14H128V194.51L288 63.94l160 130.57z"></path>
+                        </svg>
+                    {{end}}
+                    {{$e}}
+                </a> {{if last $i (splitList "/" $.Path) }}{{else}}/{{ end}}{{ $base = (print $base $e "/")}}
+            {{ end}}
         </div>
-        <div class="w-full h-full flex flex-col justify-center items-center">
+
+        <div>
+            <a class="theme-toggler inline-block">
+                <svg class="h-5 pr-1 pl-2 dark:hidden block text-yellow-500" role="img"
+                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <g class="fa-group">
+                        <path class="fa-secondary" fill="currentColor"
+                              d="M502.42 240.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.41-94.8a17.31 17.31 0 0 0-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4a17.31 17.31 0 0 0 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.41-33.5 47.3 94.7a17.31 17.31 0 0 0 31 0l47.31-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3a17.33 17.33 0 0 0 .2-31.1zm-155.9 106c-49.91 49.9-131.11 49.9-181 0a128.13 128.13 0 0 1 0-181c49.9-49.9 131.1-49.9 181 0a128.13 128.13 0 0 1 0 181z"
+                              opacity="0.4"></path>
+                        <path class="fa-primary" fill="currentColor"
+                              d="M352 256a96 96 0 1 1-96-96 96.15 96.15 0 0 1 96 96z"></path>
+                    </g>
+                </svg>
+
+
+                <svg class="h-5 pr-1 pl-2 hidden dark:block text-blue-200" role="img"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 512 512">
+                    <g class="fa-group">
+                        <path class="fa-secondary" fill="currentColor"
+                              d="M320 32L304 0l-16 32-32 16 32 16 16 32 16-32 32-16zm138.7 149.3L432 128l-26.7 53.3L352 208l53.3 26.7L432 288l26.7-53.3L512 208z"
+                              opacity="0.4"></path>
+                        <path class="fa-primary" fill="currentColor"
+                              d="M332.2 426.4c8.1-1.6 13.9 8 8.6 14.5a191.18 191.18 0 0 1-149 71.1C85.8 512 0 426 0 320c0-120 108.7-210.6 227-188.8 8.2 1.6 10.1 12.6 2.8 16.7a150.3 150.3 0 0 0-76.1 130.8c0 94 85.4 165.4 178.5 147.7z"></path>
+                    </g>
+                </svg>
+            </a>
+        </div>
+
+        <div>
             <div class="flex justify-center items-center flex-col sm:flex-row">
-                <span>{{ .layout }}</span>
+                    <span>
+                        {{ if eq .layout "gallery" }}
+                            <svg class="h-5 pr-1 pl-2 theme-text" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path
+                                        fill="currentColor"
+                                        d="M512 32H160c-35.35 0-64 28.65-64 64v224c0 35.35 28.65 64 64 64H512c35.35 0 64-28.65 64-64V96C576 60.65 547.3 32 512 32zM528 320c0 8.822-7.178 16-16 16h-16l-109.3-160.9C383.7 170.7 378.7 168 373.3 168c-5.352 0-10.35 2.672-13.31 7.125l-62.74 94.11L274.9 238.6C271.9 234.4 267.1 232 262 232c-5.109 0-9.914 2.441-12.93 6.574L176 336H160c-8.822 0-16-7.178-16-16V96c0-8.822 7.178-16 16-16H512c8.822 0 16 7.178 16 16V320zM224 112c-17.67 0-32 14.33-32 32s14.33 32 32 32c17.68 0 32-14.33 32-32S241.7 112 224 112zM456 480H120C53.83 480 0 426.2 0 360v-240C0 106.8 10.75 96 24 96S48 106.8 48 120v240c0 39.7 32.3 72 72 72h336c13.25 0 24 10.75 24 24S469.3 480 456 480z"/></svg>
+                        {{ else if eq .layout "default" }}
+                            <svg class="h-5 pr-1 pl-2 theme-text" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path
+                                        fill="currentColor"
+                                        d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM488 72C501.3 72 512 82.75 512 96C512 109.3 501.3 120 488 120H184C170.7 120 160 109.3 160 96C160 82.75 170.7 72 184 72H488zM488 232C501.3 232 512 242.7 512 256C512 269.3 501.3 280 488 280H184C170.7 280 160 269.3 160 256C160 242.7 170.7 232 184 232H488zM488 392C501.3 392 512 402.7 512 416C512 429.3 501.3 440 488 440H184C170.7 440 160 429.3 160 416C160 402.7 170.7 392 184 392H488zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z"/></svg>
+                        {{end}}
+                    </span>
                 <div>
                     {{ if eq .layout "default" }}
-                    <a href='{{ (urlAddQuery .Request.URL "layout" "gallery") }}'>
-
-                        <div class="w-10 h-5 flex items-center toggle-enabled rounded-full mx-3 px-1">
-                            <div class="bg-white w-3 h-3 rounded-full shadow-md transform">
+                        <a href='{{ (urlAddQuery .Request.URL "layout" "gallery") }}'>
+                            <div class="w-10 h-5 flex items-center toggle-enabled rounded-full mx-3 px-1">
+                                <div class="bg-white w-3 h-3 rounded-full shadow-md transform">
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     {{else}}
-                    <a href='{{ (urlAddQuery .Request.URL "layout" "index") }}'>
-                        <div class="w-10 h-5 flex items-center toggle-disabled rounded-full mx-3 px-1">
-                            <div class="bg-white w-3 h-3 rounded-full shadow-md transform translate-x-5">
+                        <a href='{{ (urlAddQuery .Request.URL "layout" "index") }}'>
+                            <div class="w-10 h-5 flex items-center toggle-disabled rounded-full mx-3 px-1">
+                                <div class="bg-white w-3 h-3 rounded-full shadow-md transform translate-x-5">
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     {{end}}
                 </div>
             </div>
         </div>
-        <div class="w-full  flex flex-col justify-center items-center">
+        <div>
             <div class="flex justify-center items-center flex-col sm:flex-row">
-                <span>{{ .Mode }}</span>
-                <div>
+                <span>
                     {{ if eq .Mode "full" }}
-                    <a href='{{ (urlAddQuery .Request.URL "full" "no") }}'>
+                        <svg class="theme-text h-5 pr-1 pl-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path
+                                    fill="currentColor"
+                                    d="M288 64l32-32 52 52L456 0l56 56-84 84 52 52-32 32H288V64zm0 384V288H448l32 32-52 52 84 84-56 56-84-84-52 52-32-32zm-96 32l-52-52L56 512 0 456l84-84L32 320l32-32H224V448l-32 32zM224 64V224H64L32 192l52-52L0 56 56 0l84 84 52-52 32 32z"/></svg>
+                    {{else if eq .Mode "simple"}}
+                        <svg class="theme-text h-5 pr-1 pl-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path
+                                    fill="currentColor"
+                                    d="M428.2 290.4c-11.97-4.969-25.72-2.219-34.87 6.937l-47.03 47.04L257.9 256l88.4-88.41l47.03 47.03c6.127 6.117 14.3 9.352 22.63 9.352c4.117 0 8.276-.7977 12.24-2.415c11.97-4.953 19.75-16.62 19.75-29.56V56c0-13.25-10.74-23.1-23.1-23.1h-135.1c-12.94 0-24.62 7.797-29.56 19.75c-4.969 11.97-2.219 25.72 6.937 34.87l47.03 47.03L224 222.1L135.6 133.7l47.03-47.03c6.117-6.129 9.362-14.29 9.362-22.63c0-4.117-.8077-8.277-2.425-12.25c-4.953-11.97-16.62-19.75-29.56-19.75H24c-13.25 0-23.1 10.74-23.1 23.1v135.1c0 12.94 7.797 24.62 19.75 29.56c11.97 4.969 25.72 2.219 34.87-6.937l47.03-47.03L190.1 256l-88.41 88.41L54.63 297.4c-6.127-6.117-14.29-9.367-22.63-9.367c-4.117 0-8.279 .8125-12.25 2.43c-11.97 4.953-19.75 16.62-19.75 29.56v135.1c0 13.25 10.74 23.1 23.1 23.1h135.1c12.94 0 24.62-7.797 29.56-19.75c4.969-11.97 2.219-25.72-6.937-34.87l-47.03-47.03l88.41-88.41l88.4 88.41l-47.03 47.02c-6.117 6.129-9.351 14.3-9.351 22.64c0 4.117 .7968 8.271 2.414 12.24c4.953 11.97 16.62 19.75 29.56 19.75h135.1c13.25 0 23.1-10.74 23.1-23.1V319.1C447.1 307.1 440.2 295.4 428.2 290.4z"/></svg>
+                    {{end}}
+                </span>
+                <div>
 
-                        <div class="w-10 h-5 flex items-center toggle-enabled rounded-full mx-3 px-1">
-                            <div class="bg-white w-3 h-3 rounded-full shadow-md transform">
+                    {{ if eq .Mode "full" }}
+                        <a href='{{ (urlAddQuery .Request.URL "full" "no") }}'>
+
+                            <div class="w-10 h-5 flex items-center toggle-enabled rounded-full mx-3 px-1">
+                                <div class="bg-white w-3 h-3 rounded-full shadow-md transform">
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     {{else}}
-                    <a href='{{ (urlAddQuery .Request.URL "full" "yes") }}'>
-                        <div class="w-10 h-5 flex items-center  toggle-disabled rounded-full mx-3 px-1">
-                            <div class="bg-white w-3 h-3 rounded-full shadow-md transform translate-x-5">
+                        <a href='{{ (urlAddQuery .Request.URL "full" "yes") }}'>
+                            <div class="w-10 h-5 flex items-center  toggle-disabled rounded-full mx-3 px-1">
+                                <div class="bg-white w-3 h-3 rounded-full shadow-md transform translate-x-5">
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     {{end}}
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 </div>

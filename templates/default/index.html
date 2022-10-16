@@ -9,15 +9,15 @@
 
     <title>Glass -
         {{ if eq .Path "/"}}
-        /
+            /
         {{ else }}
-        {{ .Info.Name }}
+            {{ .Info.Name }}
         {{end}}</title>
 </head>
-<body class="dark:bg-gray-900 dark:text-gray-50 bg-gray-50 text-gray-900">
+<body class="dark:bg-slate-900 dark:text-slate-50 bg-slate-50 text-slate-900">
+{{ template "_header.html" dict "layout" "default" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
 
-<div class="container mx-auto p-2">
-    {{ template "_header.html" dict "layout" "default" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
+<div class="container mx-auto mt-4 p-10 bg-white  dark:bg-slate-700 rounded shadow-md">
 
     <table class="w-full whitespace-nowrap">
         <thead>
@@ -38,100 +38,100 @@
         </thead>
         <tbody class="w-full">
         {{ if ne .Path "/" }}
-        <tr class="h-12 text-sm leading-none  border-b border-t">
-            <td class="pl-4 cursor-pointer">
-                <a href='{{ changePath .Request.URL (print .Path "..")}}'>
-                    <svg aria-hidden="true"
-                         focusable="false" data-prefix="fal" data-icon="folder" class="h-4 inline-block mr-2"
-                         role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path fill="currentColor"
-                              d="M194.74 96l54.63 54.63c6 6 14.14 9.37 22.63 9.37h192c8.84 0 16 7.16 16 16v224c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V112c0-8.84 7.16-16 16-16h146.74M48 64C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48z"></path>
-                    </svg>
-                    ..</a>
+            <tr class="h-12 text-sm leading-none  border-b border-t">
+                <td class="pl-4 cursor-pointer">
+                    <a href='{{ changePath .Request.URL (print .Path "..")}}'>
+                        <svg aria-hidden="true"
+                             focusable="false" data-prefix="fal" data-icon="folder" class="h-4 inline-block mr-2"
+                             role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path fill="currentColor"
+                                  d="M194.74 96l54.63 54.63c6 6 14.14 9.37 22.63 9.37h192c8.84 0 16 7.16 16 16v224c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V112c0-8.84 7.16-16 16-16h146.74M48 64C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48z"></path>
+                        </svg>
+                        ..</a>
 
-            </td>
-            <td class="pl-12">
-            </td>
+                </td>
+                <td class="pl-12">
+                </td>
 
-        </tr>
+            </tr>
         {{end}}
         {{range .Files }}
 
-        <tr class="h-12 text-sm leading-none text-gray-800 bg-white dark:text-gray-100 dark:bg-black  border-b border-t border-gray-100">
+            <tr class="h-12 text-sm leading-none border-b border-t border-slate-100">
 
-            <td class="pl-4 cursor-pointer">
-                {{ if .IsDir }}
+                <td class="pl-4 cursor-pointer">
+                    {{ if .IsDir }}
 
-                <a href="{{ changePath $.Request.URL ( print $.Path  .Name)}}/">
-                    <img src="{{$.Path}}{{.Name}}/?hidden=dir"
-                         class="h-6 inline-block mr-2"/>{{.Name}}/</a>
-                {{else}}
-                {{$fileType := (ftype .Name) }}
-
-
-                <a href="{{ changePath $.Request.URL (print $.Path .Name)}}">
-                    {{if eq $fileType "video"}}
-
-                    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-video"
-                         class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 384 512">
-                        <path fill="currentColor"
-                              d="M224 280.593C224 267.01 212.989 256 199.407 256H88.593C75.011 256 64 267.01 64 280.593v110.815C64 404.99 75.011 416 88.593 416h110.814C212.989 416 224 404.99 224 391.407V381l27.971 27.971a23.998 23.998 0 0 0 16.97 7.029H296c13.255 0 24-10.745 24-24V280c0-13.255-10.745-24-24-24h-27.059a24.003 24.003 0 0 0-16.97 7.029L224 291v-10.407zM192 384H96v-96h96v96zm80.255-96H288v96h-15.745L224 342.826v-13.652L272.255 288zm97.686-190.059l-83.883-83.882A47.996 47.996 0 0 0 252.118 0H48C21.49 0 0 21.49 0 48v416c0 26.51 21.49 48 48 48h288c26.51 0 48-21.49 48-48V131.882a48 48 0 0 0-14.059-33.941zM256 32.491a15.888 15.888 0 0 1 7.432 4.195l83.882 83.882a15.882 15.882 0 0 1 4.195 7.431H256V32.491zM352 464c0 8.837-7.164 16-16 16H48c-8.836 0-16-7.163-16-16V48c0-8.837 7.164-16 16-16h176v104c0 13.255 10.745 24 24 24h104v304z"></path>
-                    </svg>
-                    {{else if eq $fileType "image"}}
-                    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-image"
-                         class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 384 512">
-                        <path fill="currentColor"
-                              d="M159 336l-39.5-39.5c-4.7-4.7-12.3-4.7-17 0l-39 39L63 448h256V304l-55.5-55.5c-4.7-4.7-12.3-4.7-17 0L159 336zm96-50.7l32 32V416H95.1l.3-67.2 15.6-15.6 48 48c20.3-20.3 77.7-77.6 96-95.9zM127 256c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm0-96c17.6 0 32 14.4 32 32s-14.4 32-32 32-32-14.4-32-32 14.4-32 32-32zm242.9-62.1L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM256 32.5c2.8.7 5.3 2.1 7.4 4.2l83.9 83.9c2.1 2.1 3.5 4.6 4.2 7.4H256V32.5zM352 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V48c0-8.8 7.2-16 16-16h176v104c0 13.3 10.7 24 24 24h104v304z"></path>
-                    </svg>
-
-                    {{else if eq $fileType "audio"}}
-
-                    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-music"
-                         class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 384 512">
-                        <path fill="currentColor"
-                              d="M369.91 98L286 14.09A48 48 0 0 0 252.09 0H48A48.15 48.15 0 0 0 0 48.08V464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V132a48.22 48.22 0 0 0-14.09-34zM256 32.59a15.63 15.63 0 0 1 7.41 4.2l83.9 83.88a15.63 15.63 0 0 1 4.19 7.4H256zM352 464a16 16 0 0 1-16 16H48a16 16 0 0 1-16-16V48.08a16 16 0 0 1 16-16h176v104a23.93 23.93 0 0 0 24 24h104zM128 271.2v98.69a69.34 69.34 0 0 0-16-2c-26.5 0-48 14.33-48 32s21.5 32 48 32 48-14.32 48-32V291.11l96-37.51v84.29a69.34 69.34 0 0 0-16-1.95c-26.5 0-48 14.32-48 32s21.5 32 48 32 48-14.33 48-32V224a16 16 0 0 0-20.81-15.24l-128 47.24A16 16 0 0 0 128 271.2z"></path>
-                    </svg>
-
-                    {{else if eq $fileType "doc"}}
-
-
-                    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-alt"
-                         class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 384 512">
-                        <path fill="currentColor"
-                              d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zm-22.6 22.7c2.1 2.1 3.5 4.6 4.2 7.4H256V32.5c2.8.7 5.3 2.1 7.4 4.2l83.9 83.9zM336 480H48c-8.8 0-16-7.2-16-16V48c0-8.8 7.2-16 16-16h176v104c0 13.3 10.7 24 24 24h104v304c0 8.8-7.2 16-16 16zm-48-244v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm0 64v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm0 64v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12z"></path>
-                    </svg>
+                        <a href="{{ changePath $.Request.URL ( print $.Path  .Name)}}/">
+                            <img src="{{$.Path}}{{.Name}}/?hidden=dir"
+                                 class="h-6 inline-block mr-2"/>{{.Name}}/</a>
                     {{else}}
+                        {{$fileType := (ftype .Name) }}
 
-                    <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file"
-                         class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 384 512">
-                        <path fill="currentColor"
-                              d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zm-22.6 22.7c2.1 2.1 3.5 4.6 4.2 7.4H256V32.5c2.8.7 5.3 2.1 7.4 4.2l83.9 83.9zM336 480H48c-8.8 0-16-7.2-16-16V48c0-8.8 7.2-16 16-16h176v104c0 13.3 10.7 24 24 24h104v304c0 8.8-7.2 16-16 16z"></path>
-                    </svg>
+
+                        <a href="{{ changePath $.Request.URL (print $.Path .Name)}}" target="_blank">
+                            {{if eq $fileType "video"}}
+
+                                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-video"
+                                     class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 384 512">
+                                    <path fill="currentColor"
+                                          d="M224 280.593C224 267.01 212.989 256 199.407 256H88.593C75.011 256 64 267.01 64 280.593v110.815C64 404.99 75.011 416 88.593 416h110.814C212.989 416 224 404.99 224 391.407V381l27.971 27.971a23.998 23.998 0 0 0 16.97 7.029H296c13.255 0 24-10.745 24-24V280c0-13.255-10.745-24-24-24h-27.059a24.003 24.003 0 0 0-16.97 7.029L224 291v-10.407zM192 384H96v-96h96v96zm80.255-96H288v96h-15.745L224 342.826v-13.652L272.255 288zm97.686-190.059l-83.883-83.882A47.996 47.996 0 0 0 252.118 0H48C21.49 0 0 21.49 0 48v416c0 26.51 21.49 48 48 48h288c26.51 0 48-21.49 48-48V131.882a48 48 0 0 0-14.059-33.941zM256 32.491a15.888 15.888 0 0 1 7.432 4.195l83.882 83.882a15.882 15.882 0 0 1 4.195 7.431H256V32.491zM352 464c0 8.837-7.164 16-16 16H48c-8.836 0-16-7.163-16-16V48c0-8.837 7.164-16 16-16h176v104c0 13.255 10.745 24 24 24h104v304z"></path>
+                                </svg>
+                            {{else if eq $fileType "image"}}
+                                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-image"
+                                     class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 384 512">
+                                    <path fill="currentColor"
+                                          d="M159 336l-39.5-39.5c-4.7-4.7-12.3-4.7-17 0l-39 39L63 448h256V304l-55.5-55.5c-4.7-4.7-12.3-4.7-17 0L159 336zm96-50.7l32 32V416H95.1l.3-67.2 15.6-15.6 48 48c20.3-20.3 77.7-77.6 96-95.9zM127 256c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm0-96c17.6 0 32 14.4 32 32s-14.4 32-32 32-32-14.4-32-32 14.4-32 32-32zm242.9-62.1L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM256 32.5c2.8.7 5.3 2.1 7.4 4.2l83.9 83.9c2.1 2.1 3.5 4.6 4.2 7.4H256V32.5zM352 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V48c0-8.8 7.2-16 16-16h176v104c0 13.3 10.7 24 24 24h104v304z"></path>
+                                </svg>
+
+                            {{else if eq $fileType "audio"}}
+
+                                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-music"
+                                     class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 384 512">
+                                    <path fill="currentColor"
+                                          d="M369.91 98L286 14.09A48 48 0 0 0 252.09 0H48A48.15 48.15 0 0 0 0 48.08V464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V132a48.22 48.22 0 0 0-14.09-34zM256 32.59a15.63 15.63 0 0 1 7.41 4.2l83.9 83.88a15.63 15.63 0 0 1 4.19 7.4H256zM352 464a16 16 0 0 1-16 16H48a16 16 0 0 1-16-16V48.08a16 16 0 0 1 16-16h176v104a23.93 23.93 0 0 0 24 24h104zM128 271.2v98.69a69.34 69.34 0 0 0-16-2c-26.5 0-48 14.33-48 32s21.5 32 48 32 48-14.32 48-32V291.11l96-37.51v84.29a69.34 69.34 0 0 0-16-1.95c-26.5 0-48 14.32-48 32s21.5 32 48 32 48-14.33 48-32V224a16 16 0 0 0-20.81-15.24l-128 47.24A16 16 0 0 0 128 271.2z"></path>
+                                </svg>
+
+                            {{else if eq $fileType "doc"}}
+
+
+                                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file-alt"
+                                     class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 384 512">
+                                    <path fill="currentColor"
+                                          d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zm-22.6 22.7c2.1 2.1 3.5 4.6 4.2 7.4H256V32.5c2.8.7 5.3 2.1 7.4 4.2l83.9 83.9zM336 480H48c-8.8 0-16-7.2-16-16V48c0-8.8 7.2-16 16-16h176v104c0 13.3 10.7 24 24 24h104v304c0 8.8-7.2 16-16 16zm-48-244v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm0 64v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm0 64v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12z"></path>
+                                </svg>
+                            {{else}}
+
+                                <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="file"
+                                     class="h-4 inline-block mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 384 512">
+                                    <path fill="currentColor"
+                                          d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zm-22.6 22.7c2.1 2.1 3.5 4.6 4.2 7.4H256V32.5c2.8.7 5.3 2.1 7.4 4.2l83.9 83.9zM336 480H48c-8.8 0-16-7.2-16-16V48c0-8.8 7.2-16 16-16h176v104c0 13.3 10.7 24 24 24h104v304c0 8.8-7.2 16-16 16z"></path>
+                                </svg>
+                            {{end}}
+
+                            {{.Name}}
+                        </a>
+
                     {{end}}
 
-                    {{.Name}}
-                </a>
 
-                {{end}}
-
-
-            </td>
-            <td class="pl-12">
+                </td>
+                <td class="pl-12">
                 <span>
                         {{hrsize .Size}}
                 </span>
-                <div class="text-xs">{{.ModTime.Format "2006-01-02 15:04:05" }}</div>
+                    <div class="text-xs">{{.ModTime.Format "2006-01-02 15:04:05" }}</div>
 
-            </td>
-            <td class="pl-12">
+                </td>
+                <td class="pl-12">
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         {{end}}
 
         </tbody>

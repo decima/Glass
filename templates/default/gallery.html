@@ -9,24 +9,24 @@
     <link href="/_assets/build/app.css" rel="stylesheet">
 
 </head>
-<body class="dark:bg-gray-900 dark:text-gray-50 bg-gray-50 text-gray-900">
-<div class="container mx-auto p-2">
+<body class="dark:bg-slate-900 dark:text-slate-50 bg-slate-50 text-slate-900">
 
-    {{ template "_header.html" dict "layout" "gallery" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-12">
+{{ template "_header.html" dict "layout" "gallery" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
+<div class="container mx-auto p-4">
+
+    <div class="grid grid-cols-1 gap-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6">
         {{range .Files }}
-            <div class="border h-96 lg:h-52 xl:h-36">
+            <div class="">
                 {{ if .IsDir }}
                     <a href="{{ changePath $.Request.URL (print $.Path .Name) }}"
-                       class="w-full h-full relative flex flex-col  flex-wrap content-center justify-end bg-cover bg-center bg-no-repeat hover:text-pink-300 text-xl"
+                       class="w-full h-full relative flex flex-col  flex-wrap content-center justify-end bg-contain bg-center bg-no-repeat text-xl"
                        style="background-image: url({{$.Path}}{{.Name}}/?hidden=dir)">
                         <span class="w-full h-8 text-center align-bottom xl:text-sm">{{.Name}}</span>
                     </a>
                 {{else}}
                     {{$fileType := (ftype .Name) }}
                     {{ if eq $fileType "image"}}
-                        <a href="{{ changePath $.Request.URL (print $.Path .Name)}}" target="_blank">
-
+                        <a href="{{ changePath $.Request.URL (print $.Path .Name)}}" target="_blank" class="bg-contain bg-center w-full h-full">
                             <img src="{{$.Path}}{{.Name}}" class="lazyload w-full" loading="lazy">
                         </a>
                     {{ else if eq $fileType "video"}}
@@ -44,7 +44,8 @@
                         <audio src="{{$.Path}}{{.Name}}" controls></audio>
                     {{ else }}
                         <a href="{{ changePath $.Request.URL (print $.Path .Name) }}" target="_blank"
-                           class="w-full h-full relative flex flex-col  flex-wrap content-center justify-end bg-cover bg-center bg-no-repeat hover:text-pink-300 text-xl">
+                           class="w-full h-full relative flex flex-col  flex-wrap content-center  bg-contain bg-center bg-no-repeat  justify-end bg-cover bg-center bg-no-repeat text-xl"
+                           style="background-image: url(/_assets/icons/file.svg)">
                             <span class="w-full h-8 text-center align-bottom xl:text-xs">{{.Name}}</span>
                         </a>
                     {{ end}}
