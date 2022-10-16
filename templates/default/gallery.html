@@ -11,34 +11,45 @@
 </head>
 <body class="dark:bg-gray-900 dark:text-gray-50 bg-gray-50 text-gray-900">
 <div class="container mx-auto p-2">
-    
-    {{ template "_header.html" dict "layout" "gallery" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {{range .Files }}
-        {{ if .IsDir }}
-    <a href="{{ changePath $.Request.URL (print $.Path .Name) }}" class="w-full h-96 relative flex flex-col  flex-wrap content-center justify-end bg-cover bg-center bg-no-repeat hover:text-pink-300 text-xl"
-         style="background-image: url({{$.Path}}{{.Name}}/?hidden=dir)">
-            <span class="w-full h-8 text-center align-bottom">{{.Name}}</span>
-        </a>
-        {{end}}
-        {{$fileType := (ftype .Name) }}
-        {{ if eq $fileType "image"}}
-        <img src="{{$.Path}}{{.Name}}" class="lazyload w-full" loading="lazy">
-        {{ else if eq $fileType "video"}}
-        <a href="{{ changePath $.Request.URL (print $.Path .Name)}}" target="_blank"
-           class="w-full h-96 relative flex flex-wrap content-center justify-center bg-contain bg-center bg-no-repeat text-pink-500 hover:text-pink-300"
-           style="background-image:url({{$.Path}}{{.Name}}?thumbnail=1)">
-            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-play"
-                 class="  h-4" role="img" xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 512 512">
-                <path fill="currentColor"
-                      d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM372.5 276.5l-144 88C224.7 366.8 220.3 368 216 368c-13.69 0-24-11.2-24-24V168C192 155.3 202.2 144 216 144c4.344 0 8.678 1.176 12.51 3.516l144 88C379.6 239.9 384 247.6 384 256C384 264.4 379.6 272.1 372.5 276.5z"></path>
-            </svg>
-        </a>
-        {{ else if eq $fileType "audio"}}
-        <audio src="{{$.Path}}{{.Name}}" controls></audio>
 
-        {{ end}}
+    {{ template "_header.html" dict "layout" "gallery" "Request" .Request "Path" .Path "Info" .Info "Mode" .Mode }}
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-12">
+        {{range .Files }}
+            <div class="border h-96 lg:h-52 xl:h-36">
+                {{ if .IsDir }}
+                    <a href="{{ changePath $.Request.URL (print $.Path .Name) }}"
+                       class="w-full h-full relative flex flex-col  flex-wrap content-center justify-end bg-cover bg-center bg-no-repeat hover:text-pink-300 text-xl"
+                       style="background-image: url({{$.Path}}{{.Name}}/?hidden=dir)">
+                        <span class="w-full h-8 text-center align-bottom xl:text-sm">{{.Name}}</span>
+                    </a>
+                {{else}}
+                    {{$fileType := (ftype .Name) }}
+                    {{ if eq $fileType "image"}}
+                        <a href="{{ changePath $.Request.URL (print $.Path .Name)}}" target="_blank">
+
+                            <img src="{{$.Path}}{{.Name}}" class="lazyload w-full" loading="lazy">
+                        </a>
+                    {{ else if eq $fileType "video"}}
+                        <a href="{{ changePath $.Request.URL (print $.Path .Name)}}" target="_blank"
+                           class="w-full h-full relative flex flex-wrap content-center justify-center bg-contain bg-center bg-no-repeat text-pink-500 hover:text-pink-300"
+                           style="background-image:url({{$.Path}}{{.Name}}?thumbnail=1)">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-play"
+                                 class="  h-4" role="img" xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                      d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM372.5 276.5l-144 88C224.7 366.8 220.3 368 216 368c-13.69 0-24-11.2-24-24V168C192 155.3 202.2 144 216 144c4.344 0 8.678 1.176 12.51 3.516l144 88C379.6 239.9 384 247.6 384 256C384 264.4 379.6 272.1 372.5 276.5z"></path>
+                            </svg>
+                        </a>
+                    {{ else if eq $fileType "audio"}}
+                        <audio src="{{$.Path}}{{.Name}}" controls></audio>
+                    {{ else }}
+                        <a href="{{ changePath $.Request.URL (print $.Path .Name) }}" target="_blank"
+                           class="w-full h-full relative flex flex-col  flex-wrap content-center justify-end bg-cover bg-center bg-no-repeat hover:text-pink-300 text-xl">
+                            <span class="w-full h-8 text-center align-bottom xl:text-xs">{{.Name}}</span>
+                        </a>
+                    {{ end}}
+                {{ end}}
+            </div>
         {{end}}
     </div>
 </div>
