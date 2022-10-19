@@ -10,7 +10,7 @@ It will serve on /data on port 8000.
 
 Just run in the folder you want to serve:
 ```
-docker run --rm -v $PWD:/data -p 8000:8000 decima/glass:1.1
+docker run --rm -v $PWD:/data -p 8000:8000 decima/glass:1.2
 ```
 
 ### Docker compose
@@ -20,7 +20,7 @@ For more convenience you can use docker-compose :
 version: "3.7"
 services:
   glass:
-    image: decima/glass:1.1
+    image: decima/glass:1.2
     volumes:
       - ./:/data
     ports:

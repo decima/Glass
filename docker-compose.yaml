@@ -1,11 +1,11 @@
 version: "3.7"
 services:
   glass:
-    image: decima/glass:1.1
+    image: decima/glass:1.2
     build:
       context: .
       args:
-        VERSION: 1.1
+        VERSION: 1.2
     volumes:
       - ./:/data
     ports:
