@@ -13,6 +13,11 @@ type inMemoryItem struct {
 var sizes = map[string]inMemoryItem{}
 var mutex = sync.Mutex{}
 
+func ClearSizes() {
+	mutex.Lock()
+	sizes = map[string]inMemoryItem{}
+	mutex.Unlock()
+}
 func GetSize(path string, info os.FileInfo) int64 {
 	size := info.Size()
 	if info.IsDir() {
