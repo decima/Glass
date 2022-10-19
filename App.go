@@ -27,8 +27,8 @@ func init() {
 func routines() {
 	go func() {
 		for {
-			tools.CalculateSizes(*baseDir)
-			time.Sleep(6 * time.Hour)
+			tools.ClearSizes()
+			time.Sleep(30 * time.Minute)
 		}
 	}()
 }
