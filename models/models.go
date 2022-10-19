@@ -7,13 +7,13 @@ import (
 )
 
 type Listing struct {
-	Files   []FileInfo `json:"files"`
-	SortBy  string
-	SortDir string
-	Info    os.FileInfo
-	Path    string `json:"path"`
-	Request *http.Request
-	Mode    string
+	Files   []FileInfo    `json:"files"`
+	SortBy  string        `json:"-"`
+	SortDir string        `json:"-"`
+	Info    os.FileInfo   `json:"-"`
+	Path    string        `json:"path"`
+	Request *http.Request `json:"-"`
+	Mode    string        `json:"-"`
 }
 type FileInfo struct {
 	Name    string      `json:"name"`
